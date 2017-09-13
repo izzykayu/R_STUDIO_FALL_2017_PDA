@@ -1,0 +1,280 @@
+---
+title: "R Notebook"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+# classwork with class examples
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+
+```{r}
+x <- 5+13
+x
+```
+```{r}
+r <- "R rocks"
+r
+```
+
+```{r}
+h <- "hello world"
+h
+# Classwork: Assign the string hello world to object h and print the result. 
+
+```
+
+```{r}
+date()
+```
+
+```{r}
+ ?date()
+```
+```{r}
+seq(from=1, to=10)    # arguments inside, this will give in integers the 1 to 10
+```
+```{r}
+?seq()
+
+# Classwork: Consider the seq function. What does it do? 
+# Generate regular sequences. seq is a standard generic with a default method. seq.int is a primitive which can be much faster but has a few restrictions. seq_along and seq_len are very fast primitives for two common cases.
+```
+
+```{r}
+x <- c(12, 20.1, 53.6, 2, 7.43, 24, 8.2, 6)
+ sin(x)
+ sqrt(x)
+ c(x,x)
+
+```
+```{r}
+x
+```
+
+```{r}
+  # Create a numeric vector
+  v <- c(2,15,5,7)
+  # Create a naming vector
+  n <- c("two","fifteen","five","seven")
+  # Assign the names to the vector
+  names(v) <- n
+  v
+
+  
+```
+
+```{r}
+# Classwork: What happens if you type names(n) <- v?
+
+names(n) <- v
+n
+# the numbers become the naming vactors
+
+# What if the length of either vectors (names or values) are not the same?
+p <- c(1, 2, 11, 21)
+q <- c("a", "b", "c")
+names(p) <- q
+p
+# you have <NA> for 21
+
+```
+
+```{r}
+
+# What happens if you label two numbers with the same name? 
+a <- c(8, 1, 2, 5)
+b <- c("apples", "oranges", "mangos", "oranges")
+names(a) <- b
+a
+# there is no error, see below
+```
+
+```{r}
+# subsetting by index
+v[c(1,2)]
+
+# Subsetting by name
+v[c("two","seven")]
+
+  # Subset all but some
+v[-c(1,2)]
+
+  # Subset using logicals
+v[c(FALSE,TRUE,TRUE,FALSE)]
+```
+```{r}
+# Classwork:
+# What happens if you swap the index?
+v[c(2,1)]
+# the output will be swapped with fifteen /15 coming out first
+# What happens if you subset by the name not present, like v[c("two","three")]?
+v[c("two","three")]
+# it will provide another index and value as <NA> and NA
+
+# Does the “subseting some”" operation work with names? NO
+# v[-c("two","three")]
+# this will cause the following error: Error in -c("two", "seven") : invalid argument to unary operator
+
+```
+```{r}
+lv = c(1:10)
+lv    #vector of numbers 1 through 10
+L = c(FALSE, TRUE, FALSE, TRUE, FALSE) 
+lv[L]
+# in this situation, numbers 1, 3, 5 are considered false, the logic repeats and therefore numbers 6, 8, and 10 are also false and thus excluded
+f = c(TRUE, FALSE)
+lv[f]
+# in this situation, the number at position 1 is considered true and included, the number at position 2 is considered false and the pattern repeats (recycles) until there are no more values to be considered
+```
+
+```{r}
+# Classwork: Make a vector of length 55 with NA in them and test for missing values using the is.na() function.
+x <- NA
+length(x) = 20
+p <-c(1:15)
+op <-c(x, p, x)
+op   # op is the vector with multiple NA as well as number values
+
+is.na(op)   # this shows where there is NA values
+```
+
+```{r}
+
+# Extend this to a vector of length 50005000. 
+extop <- op[1:50005000]
+extop
+# or you c an do it by
+length(op) = 50005000
+op
+
+```
+```{r}
+paste(c("X","Y"), "ab,b")
+paste(c("X","Y"), "ab,b", sep="")
+# Classwork: Play with the sep argument to include other type of delimiters (like comma etc.) 
+
+paste(c("IZZY", "METZGER"), "xy,x", sep="ZzZz")
+paste(c("IZZY", "METZGER"), "xy,x", sep="/")
+paste(c("IZZY", "METZGER"), "xy,x", sep=",")
+paste(c("IZZY", "METZGER"), "xy,x", sep="....")
+
+```
+
+```{r}
+class(TRUE)
+class(2.5)
+class(2L)
+class("R data types rock, etc.")
+as.integer(TRUE)
+as.character(2)
+  # Create a matrix specifying the number of rows
+matrix(1:6, nrow=2)
+  # Create a matrix specifying the number of columns
+matrix(1:6, ncol=2)
+  # Create a matrix specifying the number of rows &
+  # distributing the numbers through rows first
+matrix(1:6, nrow=2, byrow=TRUE)
+
+  # Create a matrix specifying both rows and columns
+matrix(1:6, nrow=2, ncol=3)
+```
+
+```{r}
+#Classwork:
+# What happens if the number of rows/coumns are more than the generated numbers when using the function matrix()?
+matrix(1:6, nrow=12, ncol=3)
+matrix(1:6, nrow=2, ncol=12)
+# will start over and fill columns with values beginning with 1 until 6 if ncol is a multiplier/submultiplier value
+```
+
+
+```{r}
+# What happens in cbind() (and rbind()) if one of the columns (and rows) have more numbers than the other? CAUSES AN ERROR
+t <- matrix(1:6, nrow=2, ncol=3)
+t
+e <- matrix(1:3, nrow=3, ncol=3)
+e
+# cbind(t,e)
+# Error in cbind(t, e) : number of rows of matrices must match (see arg 2)
+```
+
+
+
+```{r}
+l <- matrix(1:6, nrow=2, ncol=2)
+# rbind(t,l) CAUSES AN ERROR
+
+#combining with rbind when columns are not the same will result in error message :Error in rbind(t, l) :  number of columns of matrices must match (see arg 2)
+```
+
+
+```{r}
+# Combine two matrices using cbind().
+cbind(1:6,1:3)
+
+```
+```{r}
+w <-  c("A","B","C","D","E", "F")
+dim(w) <- c(2,3)    # 2 rows, 3 columns of characters in w
+w
+class(w)    # matrix
+```
+```{r}
+# Can you “bind” two matrices of different data types? What happens when you do that?
+cbind(t,w)
+# all data types became characters
+cbind(w,t)
+
+```
+
+```{r}
+# Create a matrix
+M <- matrix(1:9,nrow=3)
+  # Subsetting through indices
+#Classwork: What will M[5] print? Specify the rationale behind this.
+M[5]
+# M will print 5 because it prints what is in index 5. However if you printed M[1,2], it would print the number 4 because that is the number in the 1st row, 2nd column position
+
+```
+```{r}
+# What does this subset print, M[c(2,3),c(1,2)]? 
+ M[c(2,3),c(1,2)]
+ # subsets and prints what is in rows 2 and 3 and columns 1 and 2
+```
+```{r}
+# Classwork: What happens if you subtract/add/multiply two matrices of different size? 
+ma <- matrix(1:3, nrow=3, ncol=3)
+ma
+mb <- matrix(1:12, nrow = 2, ncol=6)
+mb
+```
+```{r}
+# when using matrices of same size, works just fine
+M
+M * M
+# multiplying matrices of the same size will give you a new matrix with it's values multipled by M (M squared in this case because multiplying by itself)
+M - M
+M + M
+# Classwork: however, if you subtract/add/multiply two matrices of different size, you receive an error
+# ma - mb CAUSES AN ERROR
+# when trying to subtract matrix of different size, you receive an error message: Error in ma - mb : non-conformable arrays
+```
+```{r}
+# ma + mb  
+# also CAUSES AN ERROR: Error in ma - mb : non-conformable arrays
+```
+```{r}
+# ma - mb 
+# subtraction of different size matrices also causes an Error in ma - mb : non-conformable arrays
+```
+
